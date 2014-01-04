@@ -18,15 +18,31 @@ class ArrayQueue {
 			this->size = 0;
 		}
 
+
 		virtual ~ArrayQueue() {
-		      delete this->queue;
+		      delete[] this->queue;
 		}
+
     
-		T peek() {
+		T front() {
 			if(this->size > 0) return this->queue[currentPosition];
 
 			return NULL;
 		}
+
+
+		T back() {
+			if(this->size > 0) {
+				unsigned int i = this->currentPosition + this->size - 1;
+
+				if(i >= this->maxSize) i -= this->maxSize;		
+
+				return this->queue[i];
+			}
+
+			return NULL;
+		}
+
     
 		T pop() {
 			if(this->size > 0) {
@@ -44,6 +60,7 @@ class ArrayQueue {
 
 			return NULL;
 		}
+
     
 		bool push(T value) {
 			if(this->size < this->maxSize) {
@@ -59,9 +76,15 @@ class ArrayQueue {
       
 			return false;
 		}
+
     
 		unsigned int getSize() {
 			return this->size;
+		}
+
+
+		unsigned int getMaxSize() {
+			return this->maxSize;
 		}
 };
 
